@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family:'Inter', sans-serif;
+}
+
+.react-calendar__tile--now {
+  border: 2px solid green !important;
+  border-radius: 100%;
+  background: transparent !important;
+  font-weight: bold !important;
+}
+
+.react-calendar__tile {
+  width: 45px !important; 
+  height: 45px !important;
+  border-radius: 50%;
+  color: black !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* In your CSS */
+@media (min-width: 768px) {
+  .md-left-offset {
+    left: calc(100vw - 500px);
+    top: 0px;
+  }
+}
+
