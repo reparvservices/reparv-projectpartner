@@ -1096,9 +1096,9 @@ const Properties = () => {
     }
   };
 
-  // Delete Brochure and Video
-  const deleteBrochureAndVideo = async () => {
-    if (!window.confirm("Are you sure to delete Brochure And Video!")) return;
+  // Delete Brochure File
+  const deleteBrochure = async () => {
+    if (!window.confirm("Are you sure to delete Brochure File!")) return;
 
     try {
       const response = await fetch(
@@ -1803,6 +1803,7 @@ const Properties = () => {
                   type="url"
                   placeholder="Enter YouTube video URL"
                   className="w-full mt-[8px] text-[16px] font-medium p-3 border border-[#00000033] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-[#076300]"
+                  value={videoUpload.videoLink}
                   onChange={(e) => {
                     const url = e.target.value.trim();
 
@@ -1820,7 +1821,7 @@ const Properties = () => {
               <button
                 type="button"
                 onClick={() => {
-                  deleteBrochureAndVideo();
+                  deleteBrochure();
                 }}
                 className="deleteButton z-10 px-2 lg:px-4 py-[6px] cursor-pointer flex items-center justify-center gap-2 border border-[#00000033] rounded-tr-md rounded-bl-md bg-[#e01a1a] font-semibold text-4 leading-5 text-[#FFFFFF] active:scale-[0.98]"
               >
