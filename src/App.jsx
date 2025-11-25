@@ -13,6 +13,7 @@ import Login from "./pages/Login.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import KYC from "./pages/KYC.jsx";
+import BusinessDetails from "./pages/BusinessDetails.jsx";
 import MarketingContent from "./pages/MarketingContent.jsx";
 //import BrandAccessories from "./pages/BrandAccessories.jsx";
 import SalesPerson from "./pages/SalesPerson.jsx";
@@ -31,6 +32,7 @@ const App = () => {
       <Routes>
         <Route path="" element={<Login />} />
         <Route path="/kyc/:userid" element={<KYC />} />
+        <Route path="/business-details/:userid" element={<BusinessDetails />} />
         <Route path="/" element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/builders" element={<Builders />} />

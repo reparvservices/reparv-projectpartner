@@ -202,6 +202,20 @@ const Profile = () => {
           </h2>
         </Link>
 
+        <Link
+          to={`/business-details/${user?.id}`}
+          className="userOtherDetails cursor-pointer text-[#076300] active:scale-95 w-[320px] h-[40px] bg-[#FFFFFF] hover:bg-[#00760c] hover:text-[#FFFFFF] flex flex-col items-center justify-center p-5 gap-3 rounded-[20px] shadow-[#0000001A] "
+        >
+          <h2 className="text-[16px] leading-5 font-semibold flex gap-2 items-center justify-center">
+            <span>Business Details</span>{" "}
+            <IoCheckmarkDoneCircleSharp
+              className={`${
+                user?.status === "Active" ? "block" : "hidden"
+              } w-5 h-5`}
+            />
+          </h2>
+        </Link>
+
         {/* Upload Profile Image */}
         <div className={` ${showEditProfile ? "flex" : "hidden"}  w-[320px] `}>
           <div className="w-[330px] sm:w-[500px] overflow-scroll scrollbar-hide bg-white py-8 pb-16 px-3 sm:px-6 border border-[#cfcfcf33] rounded-[20px]">
