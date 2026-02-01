@@ -20,6 +20,7 @@ import UpdateImagesForm from "../components/propertyForm/UpdateImagesForm";
 import PropertyFilter from "../components/propertyFilter";
 import FormatPrice from "../components/FormatPrice";
 import PropertyCommissionPopup from "../components/PropertyCommissionPopup";
+import { getImageURI } from "../utils/helper";
 
 const Properties = () => {
   const navigate = useNavigate();
@@ -1268,7 +1269,7 @@ const Properties = () => {
         try {
           const parsed = JSON.parse(row.frontView);
           if (Array.isArray(parsed) && parsed[0]) {
-            imageSrc = `${URI}${parsed[0]}`;
+            imageSrc = `${getImageURI(parsed[0])}`;
           }
         } catch (e) {
           console.warn("Invalid or null frontView:", row.frontView);
@@ -1715,9 +1716,9 @@ const Properties = () => {
                   <div className="relative mb-3">
                     <img
                       onClick={() => {
-                        window.open(URI + videoUpload?.brochureFile, "_blank");
+                        window.open(getImageURI(videoUpload?.brochureFile), "_blank");
                       }}
-                      src={URI + videoUpload?.brochureFile}
+                      src={getImageURI(videoUpload?.brochureFile)}
                       alt="Old Image"
                       className="w-full max-w-[100px] object-cover rounded-lg border border-gray-300 cursor-pointer"
                     />

@@ -8,6 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { CgWebsite } from "react-icons/cg";
+import { getImageURI } from "../utils/helper";
 
 const Profile = () => {
   const { showProfile, setShowProfile, setLoading, URI } = useAuth();
@@ -177,7 +178,7 @@ const Profile = () => {
         </div>
         <div className="profileImgContainer w-[320px] h-[300px] bg-[#FFFFFF] flex flex-col items-center justify-center p-5 gap-3 rounded-[20px] shadow-[#0000001A] ">
           <img
-            src={`${URI}${user?.userimage}`}
+            src={`${getImageURI(user?.userimage)}`}
             alt=""
             className="w-[120px] h-[120px] rounded-[50%]"
           />

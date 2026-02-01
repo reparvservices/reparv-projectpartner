@@ -326,9 +326,9 @@ export default function BusinessDetails() {
               <div className="relative mb-3">
                 <img
                   onClick={() => {
-                    window.open(URI + userData?.businessLogo, "_blank");
+                    window.open(getImageURI(userData?.businessLogo), "_blank");
                   }}
-                  src={URI + userData?.businessLogo}
+                  src={getImageURI(userData?.businessLogo)}
                   alt="Old Image"
                   className="w-full max-w-[100px] max-h-[100px] object-cover rounded-lg border border-gray-300 cursor-pointer"
                 />
