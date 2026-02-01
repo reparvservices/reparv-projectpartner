@@ -148,6 +148,8 @@ function Layout() {
     setShowBuilderForm,
     showPropertyForm,
     setShowPropertyForm,
+    showPropertyAddForm,
+    setShowPropertyAddForm,
     showPartner,
     setShowPartner,
     showPartnerForm,
@@ -234,6 +236,7 @@ function Layout() {
     { state: showBuilder, setter: setShowBuilder },
     { state: showBuilderForm, setter: setShowBuilderForm },
     { state: showPropertyForm, setter: setShowPropertyForm },
+    { state: showPropertyAddForm, setter: setShowPropertyAddForm },
     { state: showUpdateImagesForm, setter: setShowUpdateImagesForm },
     { state: showAdditionalInfoForm, setter: setShowAdditionalInfoForm },
     {

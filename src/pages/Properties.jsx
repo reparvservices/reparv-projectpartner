@@ -21,6 +21,7 @@ import PropertyFilter from "../components/propertyFilter";
 import FormatPrice from "../components/FormatPrice";
 import PropertyCommissionPopup from "../components/PropertyCommissionPopup";
 import { getImageURI } from "../utils/helper";
+import PropertyAddForm from "../components/propertyForm/PropertyAddForm";
 
 const Properties = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const Properties = () => {
   const {
     setShowPropertyForm,
     showPropertyForm,
+    setShowPropertyAddForm,
     showUpdateImagesForm,
     setShowUpdateImagesForm,
     showAdditionalInfoForm,
@@ -1520,7 +1522,7 @@ const Properties = () => {
           </div>
           <div className="flex xl:hidden flex-wrap items-center justify-end gap-2 sm:gap-3 px-2">
             <DownloadCSV data={filteredData} filename={"Properties.csv"} />
-            <AddButton label={"Add "} func={setShowPropertyForm} />
+            <AddButton label={"Add "} func={setShowPropertyAddForm} />
           </div>
         </div>
         <div className="searchBarContainer w-full flex flex-col lg:flex-row items-center justify-between gap-3">
@@ -1542,7 +1544,7 @@ const Properties = () => {
             </div>
             <div className="hidden xl:flex flex-wrap items-center justify-end gap-2 sm:gap-3 px-2">
               <DownloadCSV data={filteredData} filename={"Properties.csv"} />
-              <AddButton label={"Add "} func={setShowPropertyForm} />
+              <AddButton label={"Add "} func={setShowPropertyAddForm} />
             </div>
           </div>
         </div>
@@ -1569,6 +1571,17 @@ const Properties = () => {
       </div>
 
       {/* Add Property Multi Step Form */}
+      <PropertyAddForm
+        fetchData={fetchData}
+        newProperty={newProperty}
+        setPropertyData={setPropertyData}
+        imageFiles={imageFiles}
+        setImageFiles={setImageFiles}
+        states={states}
+        cities={cities}
+      />
+
+      {/* Update Property Multi Step Form */}
       <MultiStepForm
         fetchData={fetchData}
         newProperty={newProperty}
