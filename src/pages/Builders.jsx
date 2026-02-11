@@ -31,13 +31,26 @@ const Builders = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newBuilder, setNewBuilder] = useState({
-    builderid: "",
+    // Basic Info
     company_name: "",
     contact_person: "",
     contact: "",
     email: "",
+    office_address: "",
+    website: "",
+    experience: "",
+
+    // Registration
     registration_no: "",
     dor: "",
+
+    // Extra Profile Details (will go inside notes JSON)
+    about: "",
+    vision: "",
+    mission: "",
+    quality: "",
+    expertise: "",
+    why_choose: "",
   });
   // **Fetch Data from API**
   const fetchData = async () => {
@@ -73,7 +86,7 @@ const Builders = () => {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newBuilder),
-        }
+        },
       );
 
       if (response.status === 409) {
@@ -84,19 +97,32 @@ const Builders = () => {
         alert(
           newBuilder.builderid
             ? "Builder updated successfully!"
-            : "Builder added successfully!"
+            : "Builder added successfully!",
         );
       }
 
       // Clear form only after successful fetch
       setNewBuilder({
+        // Basic Info
         company_name: "",
         contact_person: "",
         contact: "",
         email: "",
+        office_address: "",
+        website: "",
+        experience: "",
 
+        // Registration
         registration_no: "",
         dor: "",
+
+        // Extra Profile Details (will go inside notes JSON)
+        about: "",
+        vision: "",
+        mission: "",
+        quality: "",
+        expertise: "",
+        why_choose: "",
       });
 
       setShowBuilderForm(false);
@@ -120,7 +146,7 @@ const Builders = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       if (!response.ok) throw new Error("Failed to fetch builders.");
       const data = await response.json();
@@ -142,7 +168,7 @@ const Builders = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       if (!response.ok) throw new Error("Failed to fetch builders.");
       const data = await response.json();
@@ -166,7 +192,7 @@ const Builders = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       const data = await response.json();
@@ -198,7 +224,7 @@ const Builders = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const data = await response.json();
       console.log(response);
@@ -246,7 +272,7 @@ const Builders = () => {
     const itemDate = parse(
       item.created_at,
       "dd MMM yyyy | hh:mm a",
-      new Date()
+      new Date(),
     );
 
     const matchesDate =
@@ -447,23 +473,19 @@ const Builders = () => {
             </div>
             <form onSubmit={add}>
               <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
-                <input
-                  type="hidden"
-                  value={newBuilder.builderid || ""}
-                  onChange={(e) =>
-                    setNewBuilder({ ...newBuilder, builderid: e.target.value })
-                  }
-                />
-                <div className="w-full ">
+                <input type="hidden" value={newBuilder.builderid || ""} />
+
+                {/* Company Name */}
+                <div className="w-full">
                   <label className="block text-sm leading-4 text-[#00000066] font-medium">
-                    Company Name
+                    Company Name <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     required
                     placeholder="Enter Company Name"
                     className="w-full mt-[10px] text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={newBuilder.company_name}
+                    value={newBuilder.company_name || ""}
                     onChange={(e) =>
                       setNewBuilder({
                         ...newBuilder,
@@ -472,16 +494,18 @@ const Builders = () => {
                     }
                   />
                 </div>
+
+                {/* Contact Person */}
                 <div className="w-full">
                   <label className="block text-sm leading-4 text-[#00000066] font-medium">
-                    Contact Person
+                    Contact Person <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     required
                     placeholder="Enter Contact"
                     className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={newBuilder.contact_person}
+                    value={newBuilder.contact_person || ""}
                     onChange={(e) =>
                       setNewBuilder({
                         ...newBuilder,
@@ -490,50 +514,56 @@ const Builders = () => {
                     }
                   />
                 </div>
+
+                {/* Contact */}
                 <div className="w-full">
                   <label className="block text-sm leading-4 text-[#00000066] font-medium">
-                    Contact Number
+                    Contact Number <span className="text-red-600">*</span>
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     required
+                    maxLength="10"
                     placeholder="Enter Contact Number"
-                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={newBuilder.contact}
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.contact || ""}
                     onChange={(e) => {
                       const input = e.target.value;
                       if (/^\d{0,10}$/.test(input)) {
-                        // Allows only up to 10 digits
                         setNewBuilder({ ...newBuilder, contact: input });
                       }
                     }}
                   />
                 </div>
+
+                {/* Email */}
                 <div className="w-full">
                   <label className="block text-sm leading-4 text-[#00000066] font-medium">
-                    Email
+                    Email <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="email"
                     required
                     placeholder="Enter Email"
-                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={newBuilder.email}
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.email || ""}
                     onChange={(e) =>
                       setNewBuilder({ ...newBuilder, email: e.target.value })
                     }
                   />
                 </div>
+
+                {/* Registration No */}
                 <div className="w-full">
                   <label className="block text-sm leading-4 text-[#00000066] font-medium">
-                    Registration No.
+                    Registration No. <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     required
                     placeholder="Enter Registration No."
-                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={newBuilder.registration_no}
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.registration_no || ""}
                     onChange={(e) =>
                       setNewBuilder({
                         ...newBuilder,
@@ -543,38 +573,226 @@ const Builders = () => {
                   />
                 </div>
 
+                {/* Date of Registration */}
                 <div className="w-full">
                   <label className="block text-sm leading-4 text-[#00000066] font-medium">
-                    Date Of Registration
+                    Date Of Registration <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="date"
                     required
-                    className="w-full mt-[10px] text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={newBuilder.dor?.split("T")[0]}
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.dor ? newBuilder.dor.split("T")[0] : ""}
+                    onChange={(e) =>
+                      setNewBuilder({ ...newBuilder, dor: e.target.value })
+                    }
+                  />
+                </div>
+
+                {/* Office Address */}
+                <div className="w-full col-span-1 lg:col-span-2">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Office Address
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Office Address"
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.office_address || ""}
+                    onChange={(e) =>
+                      setNewBuilder({
+                        ...newBuilder,
+                        office_address: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+
+                {/* Website */}
+                <div className="w-full">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Website
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Website URL"
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.website || ""}
+                    onChange={(e) =>
+                      setNewBuilder({ ...newBuilder, website: e.target.value })
+                    }
+                  />
+                </div>
+
+                {/* Experience (Years) */}
+                <div className="w-full">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Experience (Years)
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="Enter Experience in Years"
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.experience || ""}
                     onChange={(e) => {
-                      const selectedDate = e.target.value; // Get full date
-                      const formattedDate = selectedDate.split("T")[0]; // Extract only YYYY-MM-DD
-                      setNewBuilder({ ...newBuilder, dor: formattedDate });
+                      const value = e.target.value;
+                      if (/^\d*$/.test(value)) {
+                        setNewBuilder({ ...newBuilder, experience: value });
+                      }
                     }}
                   />
                 </div>
+
+                {/* About */}
+                <div className="w-full col-span-1 lg:col-span-2">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    About Builder
+                  </label>
+                  <textarea
+                    rows="3"
+                    className="w-full mt-2 p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.about || ""}
+                    onChange={(e) =>
+                      setNewBuilder({ ...newBuilder, about: e.target.value })
+                    }
+                  />
+                </div>
+
+                {/* Expertise */}
+                <div className="w-full col-span-1 lg:col-span-2">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Expertise
+                  </label>
+
+                  <select
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] bg-white appearance-none"
+                    value={newBuilder.expertise || ""}
+                    onChange={(e) =>
+                      setNewBuilder({
+                        ...newBuilder,
+                        expertise: e.target.value,
+                      })
+                    }
+                  >
+                    <option value="">Select Expertise</option>
+                    <option value="Residential Apartments & Villas">
+                      Residential Apartments & Villas
+                    </option>
+                    <option value="Commercial Complexes">
+                      Commercial Complexes
+                    </option>
+                    <option value="Mixed-Use Developments">
+                      Mixed-Use Developments
+                    </option>
+                    <option value="Redevelopment Projects">
+                      Redevelopment Projects
+                    </option>
+                  </select>
+                </div>
+
+                {/* Why Choose Us */}
+                <div className="w-full col-span-1 lg:col-span-2">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Why Choose Us
+                  </label>
+
+                  <select
+                    className="w-full mt-2 text-[16px] font-medium p-4 border border-[#00000033] rounded-[4px] bg-white appearance-none"
+                    value={newBuilder.why_choose || ""}
+                    onChange={(e) =>
+                      setNewBuilder({
+                        ...newBuilder,
+                        why_choose: e.target.value,
+                      })
+                    }
+                  >
+                    <option value="">Select Option</option>
+
+                    <option value="RERA-compliant & legally clear projects">
+                      RERA-compliant & legally clear projects
+                    </option>
+
+                    <option value="Premium construction quality">
+                      Premium construction quality
+                    </option>
+
+                    <option value="On-time project delivery">
+                      On-time project delivery
+                    </option>
+
+                    <option value="Transparent pricing & documentation">
+                      Transparent pricing & documentation
+                    </option>
+
+                    <option value="Customer-centric approach">
+                      Customer-centric approach
+                    </option>
+                  </select>
+                </div>
+
+                {/* Quality */}
+                <div className="w-full col-span-1 lg:col-span-2">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Quality & Construction
+                  </label>
+                  <textarea
+                    rows="2"
+                    className="w-full mt-2 p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.quality || ""}
+                    onChange={(e) =>
+                      setNewBuilder({ ...newBuilder, quality: e.target.value })
+                    }
+                  />
+                </div>
+
+                {/* Vision */}
+                <div className="w-full">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Vision
+                  </label>
+                  <textarea
+                    rows="2"
+                    className="w-full mt-2 p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.vision || ""}
+                    onChange={(e) =>
+                      setNewBuilder({ ...newBuilder, vision: e.target.value })
+                    }
+                  />
+                </div>
+
+                {/* Mission */}
+                <div className="w-full">
+                  <label className="block text-sm leading-4 text-[#00000066] font-medium">
+                    Mission
+                  </label>
+                  <textarea
+                    rows="2"
+                    className="w-full mt-2 p-4 border border-[#00000033] rounded-[4px]"
+                    value={newBuilder.mission || ""}
+                    onChange={(e) =>
+                      setNewBuilder({ ...newBuilder, mission: e.target.value })
+                    }
+                  />
+                </div>
               </div>
+
               <div className="flex mt-8 md:mt-6 justify-end gap-6">
                 <button
-                  onClick={() => {
-                    setShowBuilderForm(false);
-                  }}
-                  className="px-4 py-2 leading-4 text-[#ffffff] bg-[#000000B2] rounded active:scale-[0.98]"
+                  type="button"
+                  onClick={() => setShowBuilderForm(false)}
+                  className="px-4 py-2 leading-4 text-[#ffffff] bg-[#000000B2] rounded"
                 >
                   Cancel
                 </button>
+
                 <button
                   type="submit"
-                  className="px-4 py-2 text-white bg-[#076300] rounded active:scale-[0.98]"
+                  className="px-4 py-2 text-white bg-[#076300] rounded"
                 >
                   Save
                 </button>
+
                 <Loader />
               </div>
             </form>
