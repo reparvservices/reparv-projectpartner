@@ -467,6 +467,29 @@ const Builders = () => {
               <IoMdClose
                 onClick={() => {
                   setShowBuilderForm(false);
+                  // Clear form only after successful fetch
+                  setNewBuilder({
+                    // Basic Info
+                    company_name: "",
+                    contact_person: "",
+                    contact: "",
+                    email: "",
+                    office_address: "",
+                    website: "",
+                    experience: "",
+
+                    // Registration
+                    registration_no: "",
+                    dor: "",
+
+                    // Extra Profile Details (will go inside notes JSON)
+                    about: "",
+                    vision: "",
+                    mission: "",
+                    quality: "",
+                    expertise: "",
+                    why_choose: "",
+                  });
                 }}
                 className="w-6 h-6 cursor-pointer"
               />
@@ -780,7 +803,31 @@ const Builders = () => {
               <div className="flex mt-8 md:mt-6 justify-end gap-6">
                 <button
                   type="button"
-                  onClick={() => setShowBuilderForm(false)}
+                  onClick={() => {
+                    setShowBuilderForm(false);
+                    setNewBuilder({
+                      // Basic Info
+                      company_name: "",
+                      contact_person: "",
+                      contact: "",
+                      email: "",
+                      office_address: "",
+                      website: "",
+                      experience: "",
+
+                      // Registration
+                      registration_no: "",
+                      dor: "",
+
+                      // Extra Profile Details (will go inside notes JSON)
+                      about: "",
+                      vision: "",
+                      mission: "",
+                      quality: "",
+                      expertise: "",
+                      why_choose: "",
+                    });
+                  }}
                   className="px-4 py-2 leading-4 text-[#ffffff] bg-[#000000B2] rounded"
                 >
                   Cancel
