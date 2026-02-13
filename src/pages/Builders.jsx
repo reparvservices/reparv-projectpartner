@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import DataTable from "react-data-table-component";
 import { FiMoreVertical } from "react-icons/fi";
 import Loader from "../components/Loader";
+import TagsInput from "../components/builder/TagsInput";
 
 const Builders = () => {
   const {
