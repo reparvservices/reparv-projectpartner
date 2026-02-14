@@ -345,7 +345,7 @@ const StepTwo = ({ newProperty, setPropertyData }) => {
               setPropertyData({ ...newProperty, furnishing: e.target.value });
             }}
           >
-            <option value="" disabled>
+            <option value="">
               Select Furnishing
             </option>
             <option value="Unfurnished">Unfurnished</option>
