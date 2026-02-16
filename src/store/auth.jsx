@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   //const URI = "https://aws-api.reparv.in";
 
   const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("projectPartnerUser"))
+    JSON.parse(localStorage.getItem("projectPartnerUser")),
   );
   const [loading, setLoading] = useState(false);
   const [successScreen, setSuccessScreen] = useState({
@@ -31,7 +31,8 @@ export const AuthProvider = ({ children }) => {
     description: "Our Representative will call you shortly",
   });
 
-  const [isActiveSubscription, setIsActiveSubacription] = useState(false);
+  const [isActiveSubscription, setIsActiveSubscription] = useState(false);
+
   const [showSubscription, setShowSubscription] = useState(false);
   const [dashboardFilter, setDashboardFilter] = useState("Booked");
   const [showProfile, setShowProfile] = useState(false);
@@ -117,7 +118,7 @@ export const AuthProvider = ({ children }) => {
         showProfile,
         setShowProfile,
         isActiveSubscription,
-        setIsActiveSubacription,
+        setIsActiveSubscription,
         showRoleForm,
         setShowRoleForm,
         showDepartmentForm,

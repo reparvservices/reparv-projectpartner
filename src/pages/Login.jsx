@@ -53,6 +53,7 @@ function Login() {
         );
         storeTokenInCookie(response.data.projectPartnerToken);
         navigate("/dashboard", { replace: true });
+        window.location.reload();
       } else {
         setErrorMessage("Invalid login credentials.");
       }

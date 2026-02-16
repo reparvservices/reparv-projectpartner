@@ -128,8 +128,8 @@ function Layout() {
     showProfile,
     setShowProfile,
     successScreen,
-    iActiveSubacription,
-    setIsActiveSubacription,
+    isActiveSubscription,
+    setIsActiveSubscription,
     showSubscription,
     setShowSubscription,
     giveAccess,
@@ -341,7 +341,7 @@ function Layout() {
       if (!response.ok) throw new Error("Failed to fetch Agreement.");
       const data = await response.json();
       console.log(data);
-      setIsActiveSubacription(data.active);
+      setIsActiveSubscription(!!(data.active || user?.freeProjectPartner));
     } catch (err) {
       console.error("Error fetching:", err);
     }
