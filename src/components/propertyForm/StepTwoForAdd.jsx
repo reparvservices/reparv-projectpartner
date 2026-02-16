@@ -9,10 +9,30 @@ const StepTwoForAdd = ({
   // Property Image Selector
   const handleImageChange = (event, category) => {
     const files = Array.from(event.target.files);
+    const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+
+    const validFiles = [];
+    const rejectedFiles = [];
+
+    files.forEach((file) => {
+      if (file.size > MAX_SIZE) {
+        rejectedFiles.push(file.name);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (rejectedFiles.length) {
+      alert(
+        `These images exceed 2MB limit:\n${rejectedFiles.join(
+          ", ",
+        )}\n\nPlease upload images under 2MB.`,
+      );
+    }
 
     setImageFiles((prev) => {
       const existing = prev[category] || [];
-      const newFiles = [...existing, ...files];
+      const newFiles = [...existing, ...validFiles];
 
       if (newFiles.length > 3) {
         alert("You can only upload up to 3 images per category.");
@@ -39,10 +59,7 @@ const StepTwoForAdd = ({
     <div className="bg-white max-h-[65vh] sm:max-h-[50vh] overflow-scroll scrollbar-x-hidden p-2">
       <div className="flex items-center justify-between text-base font-semibold mb-4">
         Step 3: Upload Property Images{" "}
-        <span className="text-red-600 text-xs">
-          {" "}
-          (Maximum Image Size 500kb)
-        </span>
+        <span className="text-red-600 text-xs"> (Maximum Image Size 2MB)</span>
       </div>
       <div className="grid gap-6 md:gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         {/* Upload Multiple Images */}
@@ -207,4 +224,3 @@ const StepTwoForAdd = ({
 };
 
 export default StepTwoForAdd;
-
