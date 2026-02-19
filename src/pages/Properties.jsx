@@ -10,6 +10,7 @@ import { IoMdClose } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import DataTable from "react-data-table-component";
 import { FiMoreVertical } from "react-icons/fi";
+import { FaFire } from "react-icons/fa6";
 import Loader from "../components/Loader";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import MultiStepForm from "../components/propertyForm/MultiStepForm";
@@ -151,7 +152,7 @@ const Properties = () => {
   });
 
   const [selectedPartner, setSelectedPartner] = useState(
-    "Select Property Lister"
+    "Select Property Lister",
   );
 
   const [propertyCommission, setPropertyCommission] = useState({
@@ -362,7 +363,7 @@ const Properties = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       if (!response.ok) throw new Error("Failed to fetch cities.");
       const data = await response.json();
@@ -462,7 +463,7 @@ const Properties = () => {
         {
           method: "DELETE",
           credentials: "include",
-        }
+        },
       );
 
       const data = await response.json();
@@ -493,7 +494,7 @@ const Properties = () => {
         {
           method: "PUT",
           credentials: "include",
-        }
+        },
       );
       const data = await response.json();
       console.log(response);
@@ -519,7 +520,7 @@ const Properties = () => {
         {
           method: "PUT",
           credentials: "include",
-        }
+        },
       );
       const data = await response.json();
       console.log(response);
@@ -534,6 +535,33 @@ const Properties = () => {
     }
   };
 
+  // change property into hot deal
+  const hotDeal = async (id) => {
+    if (!window.confirm("Are you sure to change hot Deal status?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        URI + `/admin/properties/set/hotdeal/${id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+        },
+      );
+      const data = await response.json();
+      //console.log(response);
+      if (response.ok) {
+        alert(`Success: ${data.message}`);
+      } else {
+        alert(`Error: ${data.message}`);
+      }
+      fetchData();
+    } catch (error) {
+      console.error("Error hot Dealingg :", error);
+    }
+  };
+
   //fetch data on form
   const fetchPropertyLocation = async (id) => {
     try {
@@ -545,7 +573,7 @@ const Properties = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       if (!response.ok) throw new Error("Failed to fetch property location.");
       const data = await response.json();
@@ -574,7 +602,7 @@ const Properties = () => {
             latitude,
             longitude,
           }),
-        }
+        },
       );
       const data = await response.json();
       //console.log(response);
@@ -623,7 +651,7 @@ const Properties = () => {
     // === Validation ===
     if (!selectedImage && !videoUpload?.videoLink) {
       alert(
-        "Please select a brochure image/PDF or enter a YouTube video link."
+        "Please select a brochure image/PDF or enter a YouTube video link.",
       );
       return;
     }
@@ -674,7 +702,7 @@ const Properties = () => {
           method: "PUT",
           credentials: "include",
           body: formData,
-        }
+        },
       );
 
       const data = await response.json();
@@ -739,7 +767,7 @@ const Properties = () => {
             seoDescription,
             propertyDescription,
           }),
-        }
+        },
       );
       const data = await response.json();
       console.log(response);
@@ -775,7 +803,7 @@ const Properties = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ rejectReason }),
-        }
+        },
       );
       const data = await response.json();
       console.log(response);
@@ -846,7 +874,7 @@ const Properties = () => {
           method: "POST",
           credentials: "include",
           body: formData, // FormData allows file uploads
-        }
+        },
       );
 
       if (response.status === 409) {
@@ -889,7 +917,7 @@ const Properties = () => {
           method: "POST",
           credentials: "include",
           body: formData,
-        }
+        },
       );
 
       const data = await response.json();
@@ -928,7 +956,7 @@ const Properties = () => {
           method: "POST",
           credentials: "include",
           body: formData,
-        }
+        },
       );
 
       const data = await response.json();
@@ -994,20 +1022,20 @@ const Properties = () => {
           method: newAddInfo.propertyinfoid ? "PUT" : "POST",
           credentials: "include",
           body: formData,
-        }
+        },
       );
 
       if (response.status === 409) {
         alert("Additional Info already exists!");
       } else if (!response.ok) {
         throw new Error(
-          `Failed to save Additional Info. Status: ${response.status}`
+          `Failed to save Additional Info. Status: ${response.status}`,
         );
       } else {
         alert(
           newAddInfo.propertyinfoid
             ? "Additional Info updated successfully!"
-            : "Additional Info added successfully!"
+            : "Additional Info added successfully!",
         );
       }
       // Clear form only after a successful response
@@ -1074,7 +1102,7 @@ const Properties = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(propertyCommission),
-        }
+        },
       );
       const data = await response.json();
       console.log(response);
@@ -1109,7 +1137,7 @@ const Properties = () => {
         {
           method: "DELETE",
           credentials: "include",
-        }
+        },
       );
 
       const data = await response.json();
@@ -1155,7 +1183,7 @@ const Properties = () => {
         }
         return acc;
       },
-      { Approved: 0, NotApproved: 0, Rejected: 0 }
+      { Approved: 0, NotApproved: 0, Rejected: 0 },
     );
   };
 
@@ -1191,7 +1219,7 @@ const Properties = () => {
     const itemDate = parse(
       item.created_at,
       "dd MMM yyyy | hh:mm a",
-      new Date()
+      new Date(),
     );
 
     const matchesDate =
@@ -1285,7 +1313,7 @@ const Properties = () => {
               onClick={() => {
                 window.open(
                   "https://www.reparv.in/property-info/" + row.seoSlug,
-                  "_blank"
+                  "_blank",
                 );
               }}
               className="w-full h-[100%] object-cover cursor-pointer"
@@ -1308,6 +1336,9 @@ const Properties = () => {
             }}
             className={`min-w-6 flex items-center justify-center px-2 py-1 rounded-md cursor-pointer`}
           >
+            {row.hotDeal === "Active" && (
+              <FaFire className="text-red-600 mr-1" />
+            )}{" "}
             {row.propertyName}
           </span>
         </div>
@@ -1355,8 +1386,8 @@ const Properties = () => {
             row.approve === "Approved"
               ? "bg-[#EAFBF1] text-[#0BB501]"
               : row.approve === "Rejected"
-              ? "bg-[#FBE9E9] text-[#FF0000]"
-              : "bg-[#E9F2FF] text-[#0068FF]"
+                ? "bg-[#FBE9E9] text-[#FF0000]"
+                : "bg-[#E9F2FF] text-[#0068FF]"
           }`}
         >
           {row.approve}
@@ -1394,6 +1425,9 @@ const Properties = () => {
           break;
         case "status":
           status(propertyid);
+          break;
+        case "hotdeal":
+          hotDeal(propertyid);
           break;
         case "update":
           edit(propertyid);
@@ -1466,7 +1500,7 @@ const Properties = () => {
           <option value="update">Update</option>
           <option value="delete">Delete</option>
           <option value="approve">Approve</option>
-
+          <option value="hotdeal">Set Hot Deal</option>
           {row.propertyCategory === "NewFlat" ||
           row.propertyCategory === "CommercialFlat" ? (
             <option value="additionalinfo">Additional Info</option>
@@ -1481,7 +1515,7 @@ const Properties = () => {
           )}
 
           {["NewFlat", "NewPlot", "CommercialFlat", "CommercialPlot"].includes(
-            row.propertyCategory
+            row.propertyCategory,
           ) ? (
             <option value="gotoadditionalinfo">View Additional Info</option>
           ) : (
@@ -1648,7 +1682,7 @@ const Properties = () => {
                   value={latitude ?? ""}
                   onChange={(e) =>
                     setLatitude(
-                      e.target.value === "" ? null : parseFloat(e.target.value)
+                      e.target.value === "" ? null : parseFloat(e.target.value),
                     )
                   }
                 />
@@ -1666,7 +1700,7 @@ const Properties = () => {
                   value={longitude ?? ""}
                   onChange={(e) =>
                     setLongitude(
-                      e.target.value === "" ? null : parseFloat(e.target.value)
+                      e.target.value === "" ? null : parseFloat(e.target.value),
                     )
                   }
                 />
@@ -1729,7 +1763,10 @@ const Properties = () => {
                   <div className="relative mb-3">
                     <img
                       onClick={() => {
-                        window.open(getImageURI(videoUpload?.brochureFile), "_blank");
+                        window.open(
+                          getImageURI(videoUpload?.brochureFile),
+                          "_blank",
+                        );
                       }}
                       src={getImageURI(videoUpload?.brochureFile)}
                       alt="Old Image"
@@ -1758,7 +1795,7 @@ const Properties = () => {
 
                         if (!allowedTypes.includes(file.type)) {
                           alert(
-                            "Only JPG, PNG, WEBP, or PDF files are allowed."
+                            "Only JPG, PNG, WEBP, or PDF files are allowed.",
                           );
                           e.target.value = "";
                           return;
