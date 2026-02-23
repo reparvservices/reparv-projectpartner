@@ -18,7 +18,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import propertyPicture from "../assets/propertyPicture.svg";
 import DownloadCSV from "../components/DownloadCSV";
 import UpdateImagesForm from "../components/propertyForm/UpdateImagesForm";
-import PropertyFilter from "../components/propertyFilter";
+import PropertyFilter from "../components/PropertyFilter";
 import FormatPrice from "../components/FormatPrice";
 import PropertyCommissionPopup from "../components/PropertyCommissionPopup";
 import { getImageURI } from "../utils/helper";
@@ -1499,7 +1499,7 @@ const Properties = () => {
           <option value="status">Status</option>
           <option value="update">Update</option>
           <option value="delete">Delete</option>
-          <option value="approve">Approve</option>
+          {/*<option value="approve">Approve</option>*/}
           <option value="hotdeal">Set Hot Deal</option>
           {row.propertyCategory === "NewFlat" ||
           row.propertyCategory === "CommercialFlat" ? (
