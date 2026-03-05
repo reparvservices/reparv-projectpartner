@@ -51,6 +51,7 @@ const StepOneForAdd = ({ newProperty, setPropertyData, states, cities }) => {
   
     const resaleTypes = [
       { label: "Resale Flat", value: "ResaleFlat", icon: MdApartment },
+      { label: "Resale House", value: "ResaleHouse", icon: FaHome },
       { label: "Resale Villa", value: "ResalelVilla", icon: FaTree },
       { label: "Resale Shop", value: "ResaleShop", icon: FaStore },
       { label: "Resale Office", value: "ResaleOffice", icon: FaBuilding },
