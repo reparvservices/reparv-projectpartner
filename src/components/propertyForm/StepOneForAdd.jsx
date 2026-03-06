@@ -40,6 +40,7 @@ const StepOneForAdd = ({ newProperty, setPropertyData, states, cities }) => {
   
     const rentalTypes = [
       { label: "Rental Flat", value: "RentalFlat", icon: MdApartment },
+      { label: "Rental Plot", value: "RentalPlot", icon: FaCity },
       { label: "Rental Villa", value: "RentalVilla", icon: FaTree },
       { label: "Rental Shop", value: "RentalShop", icon: FaStore },
       { label: "Rental Office", value: "RentalOffice", icon: FaBuilding },
@@ -51,6 +52,7 @@ const StepOneForAdd = ({ newProperty, setPropertyData, states, cities }) => {
   
     const resaleTypes = [
       { label: "Resale Flat", value: "ResaleFlat", icon: MdApartment },
+      { label: "Resale Plot", value: "ResalePlot", icon: FaCity },
       { label: "Resale House", value: "ResaleHouse", icon: FaHome },
       { label: "Resale Villa", value: "ResalelVilla", icon: FaTree },
       { label: "Resale Shop", value: "ResaleShop", icon: FaStore },
