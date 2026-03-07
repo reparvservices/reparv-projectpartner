@@ -31,6 +31,7 @@ import {
   FaWhatsapp,
   FaShareAlt,
 } from "react-icons/fa";
+import { formatNumber } from "../utils/formatNumber";
 
 const Properties = () => {
   const navigate = useNavigate();
@@ -1365,36 +1366,35 @@ const Properties = () => {
           {/* Views */}
           <div className="flex items-center gap-1 text-gray-600">
             <FaEye className="text-gray-400" />
-            <span>{row.views || 0}</span>
+            <span>{formatNumber(row.views)}</span>
           </div>
 
           {/* Likes */}
           <div className="flex items-center gap-1 text-red-500">
             <FaHeart />
-            <span>{row.likes || 0}</span>
+            <span>{formatNumber(row.likes)}</span>
           </div>
 
           {/* Calls */}
           <div className="flex items-center gap-1 text-blue-500">
             <FaPhoneAlt />
-            <span>{row.calls || 0}</span>
+            <span>{formatNumber(row.calls)}</span>
           </div>
 
           {/* WhatsApp */}
           <div className="flex items-center gap-1 text-green-600">
             <FaWhatsapp />
-            <span>{row.whatsapp || 0}</span>
+            <span>{formatNumber(row.whatsapp)}</span>
           </div>
 
           {/* Shares */}
           <div className="flex items-center gap-1 text-purple-500">
             <FaShareAlt />
-            <span>{row.shares || 0}</span>
+            <span>{formatNumber(row.shares)}</span>
           </div>
         </div>
       ),
-      sortable: false,
-      minWidth: "220px",
+      minWidth: "260px",
     },
     {
       name: "Offer Price",

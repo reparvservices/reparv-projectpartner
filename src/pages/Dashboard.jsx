@@ -10,6 +10,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import DashboardFilter from "../components/dashboard/DashboardFilter";
 import { parse } from "date-fns";
+import {
+  FaEye,
+  FaHeart,
+  FaPhoneAlt,
+  FaWhatsapp,
+  FaShareAlt,
+} from "react-icons/fa";
+import { formatNumber } from "../utils/formatNumber";
 
 function Dashboard() {
   const { URI, dashboardFilter } = useAuth();
@@ -28,7 +36,7 @@ function Dashboard() {
         }
         return acc;
       },
-      { Enquired: 0, Booked: 0 }
+      { Enquired: 0, Booked: 0 },
     );
   };
 
@@ -61,7 +69,7 @@ function Dashboard() {
     const itemDate = parse(
       item.created_at,
       "dd MMM yyyy | hh:mm a",
-      new Date()
+      new Date(),
     );
 
     const matchesDate =
@@ -154,7 +162,7 @@ function Dashboard() {
               onClick={() => {
                 window.open(
                   "https://www.reparv.in/property-info/" + row.seoSlug,
-                  "_blank"
+                  "_blank",
                 );
               }}
               className="w-full h-[100%] object-cover cursor-pointer"
@@ -220,7 +228,7 @@ function Dashboard() {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       if (!response.ok) throw new Error("Failed to fetch properties.");
       const data = await response.json();
@@ -237,130 +245,165 @@ function Dashboard() {
 
   return (
     <div className="overview overflow-scroll scrollbar-hide w-full h-screen flex flex-col items-start justify-start">
-      <div className="overview-card-container px-4 md:px-0 gap-2 sm:gap-5 w-full grid place-items-center grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-5">
+      <div className="overview-card-container px-4 md:px-0 gap-2 sm:gap-4 w-full grid place-items-center grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-5">
         {[
           {
-            label: "Total Deal Amount",
-            value:
-              (Number(overviewCountData?.totalDealAmount) / 10000000).toFixed(
-                2
-              ) + " cr" || "00",
-            icon: (
-              <FaRupeeSign className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            label: "Deal Amount",
+            value: overviewCountData?.totalDealAmount
+              ? (Number(overviewCountData.totalDealAmount) / 10000000).toFixed(
+                  2,
+                ) + " Cr"
+              : "0",
+            icon: <FaRupeeSign className="text-[#29bc1e]" />,
           },
-          
+
           {
             label: "No. of Deal Done",
-            value: overviewCountData?.totalCustomer || "00",
-            icon: <FaThumbsUp className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />,
-            //to: "/customers",
+            value: overviewCountData?.totalCustomer ?? "0",
+            icon: <FaThumbsUp className="text-[#29bc1e]" />,
           },
 
           {
             label: "Self Earning",
-            value:
-              (Number(overviewCountData?.selfEarning) / 100000).toFixed(2) +
-                " Lac" || "00",
-            icon: (
-              <FaRupeeSign className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.selfEarning
+              ? (Number(overviewCountData.selfEarning) / 100000).toFixed(2) +
+                " L"
+              : "0",
+            icon: <FaRupeeSign className="text-[#29bc1e]" />,
           },
 
           {
             label: "Deal in Sq. Ft.",
-            value: overviewCountData?.totalDealInSquareFeet || "00",
-            icon: (
-              <FaChartArea className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.totalDealInSquareFeet ?? "0",
+            icon: <FaChartArea className="text-[#29bc1e]" />,
           },
-          {
-            label: "Properties",
-            value: overviewCountData?.totalProperty || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
-            to: "/properties",
-          },
-          {
-            label: "Customers",
-            value: overviewCountData?.totalCustomer || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
-            to: "/customers",
-          },
+
           {
             label: "Enquirers",
-            value: overviewCountData?.totalEnquirer || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.totalEnquirer ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
             to: "/enquirers",
+            analytics: {
+              calls: overviewCountData?.call_enquirers || 0,
+              whatsapp: overviewCountData?.whatsapp_enquirers || 0,
+            },
           },
+
+          {
+            label: "Properties",
+            value: overviewCountData?.totalProperty ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
+            to: "/properties",
+            analytics: {
+              views: overviewCountData?.propertyViews || 0,
+              likes: overviewCountData?.propertyLikes || 0,
+              shares: overviewCountData?.propertyShares || 0,
+            },
+          },
+
+          {
+            label: "Customers",
+            value: overviewCountData?.totalCustomer ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
+            to: "/customers",
+          },
+
           {
             label: "Builders",
-            value: overviewCountData?.totalBuilder || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.totalBuilder ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
             to: "/builders",
           },
+
           {
             label: "Employees",
-            value: overviewCountData?.totalEmployee || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.totalEmployee ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
             to: "/employees",
           },
-          
+
           {
             label: "Sales Partners",
-            value: overviewCountData?.totalSalesPartner || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.totalSalesPartner ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
             to: "/salespersons",
           },
+
           {
             label: "Territory Partners",
-            value: overviewCountData?.totalTerritoryPartner || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.totalTerritoryPartner ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
             to: "/territorypartner",
           },
+
           {
             label: "Total Tickets",
-            value: overviewCountData?.totalTicket || "00",
-            icon: (
-              <IoArrowRedo className="text-[#29bc1e] hover:text-[#0bb501] sm:w-6 sm:h-6" />
-            ),
+            value: overviewCountData?.totalTicket ?? "0",
+            icon: <IoArrowRedo className="text-[#29bc1e]" />,
             to: "/tickets",
           },
         ].map((card, index) => (
           <div
             key={index}
-            onClick={() => navigate(card.to)}
-            className="overview-card w-full max-w-[200px] sm:max-w-[280px] h-[85px] sm:h-[132px] flex flex-col items-center justify-center gap-2 rounded-lg sm:rounded-[16px] p-4 sm:p-6 border-2 hover:border-[#0BB501] bg-white cursor-pointer"
+            onClick={() => card.to && navigate(card.to)}
+            className={`overview-card w-full max-w-[190px] sm:max-w-[290px] flex flex-col items-center justify-center gap-1 rounded-lg sm:rounded-[16px] border-2 hover:border-[#0BB501] bg-white cursor-pointer transition
+                       ${card.analytics ? "py-[10px]" : "py-4 sm:py-6"} px-4 sm:px-6`}
           >
-            <div className="upside w-full sm:max-w-[224px] h-[30px] sm:h-[40px] flex items-center justify-between gap-2 sm:gap-3 text-xs sm:text-base font-medium text-black">
+            {/* Title + Value */}
+
+            <div className="w-full flex items-center justify-between font-semibold">
               <p>{card.label}</p>
-              <div className={`${card.icon ? "block" : "hidden"}`}>
-                {card.icon}
-              </div>
-            </div>
-            <div className="downside w-full h-[30px] sm:max-w-[224px] sm:h-[40px] flex items-center text-xl sm:text-[28px] font-semibold text-black">
-              <p className="flex items-center justify-center">
-                <FaRupeeSign
-                  className={`${
-                    card.label === "Self Earning" ? "block" : "hidden"
-                  }`}
-                />
+
+              <p className="flex items-center text-xl">
+                {card.label === "Total Deal Amount" ||
+                card.label === "Self Earning" ? (
+                  <FaRupeeSign className="mr-1 text-[#29bc1e]" />
+                ) : null}
+
                 {card.value}
               </p>
             </div>
+
+            {/* Analytics */}
+
+            {card.analytics && (
+              <div className="flex items-center justify-between w-full text-sm text-gray-600 font-medium border-t pt-1">
+                {card.analytics.views !== undefined && (
+                  <div className="flex items-center gap-1">
+                    <FaEye className="text-blue-500" />
+                    {formatNumber(card.analytics.views)}
+                  </div>
+                )}
+
+                {card.analytics.likes !== undefined && (
+                  <div className="flex items-center gap-1">
+                    <FaHeart className="text-red-500" />
+                    {formatNumber(card.analytics.likes)}
+                  </div>
+                )}
+
+                {card.analytics.shares !== undefined && (
+                  <div className="flex items-center gap-1">
+                    <FaShareAlt className="text-green-500" />
+                    {formatNumber(card.analytics.shares)}
+                  </div>
+                )}
+
+                {card.analytics.calls !== undefined && (
+                  <div className="flex items-center gap-1">
+                    <FaPhoneAlt className="text-blue-500" />
+                    {formatNumber(card.analytics.calls)}
+                  </div>
+                )}
+
+                {card.analytics.whatsapp !== undefined && (
+                  <div className="flex items-center gap-1">
+                    <FaWhatsapp className="text-green-600" />
+                    {formatNumber(card.analytics.whatsapp)}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
