@@ -31,7 +31,6 @@ const StepOne = ({
   const [isSame, setIsSame] = useState(true);
   const [message, setMessage] = useState("");
 
-
   const [propertyTab, setPropertyTab] = useState("new");
 
   const newTypes = [
@@ -119,6 +118,20 @@ const StepOne = ({
     }
   }, [newProperty.propertyName]);
 
+  useEffect(() => {
+    if (!newProperty?.propertyCategory) return;
+
+    const category = newProperty.propertyCategory;
+
+    if (category.startsWith("New")) {
+      setPropertyTab("new");
+    } else if (category.startsWith("Rental")) {
+      setPropertyTab("rental");
+    } else if (category.startsWith("Resale")) {
+      setPropertyTab("resale");
+    }
+  }, [newProperty?.propertyCategory]);
+
   return (
     <div className="bg-white h-[55vh] overflow-scroll scrollbar-x-hidden p-2">
       <h2 className="text-base font-semibold mb-4">Step 1: Property Details</h2>
@@ -184,8 +197,8 @@ const StepOne = ({
             {(propertyTab === "new"
               ? newTypes
               : propertyTab === "rental"
-              ? rentalTypes
-              : resaleTypes
+                ? rentalTypes
+                : resaleTypes
             ).map((item) => {
               const Icon = item.icon;
               const isActive = newProperty.propertyCategory === item.value;
@@ -243,9 +256,7 @@ const StepOne = ({
           </select>
         </div>
 
-        <div
-          className={`${isRental ? "hidden" : "block"} w-full`}
-        >
+        <div className={`${isRental ? "hidden" : "block"} w-full`}>
           <label
             className={`text-green-600 block text-sm leading-4 font-medium`}
           >
@@ -262,9 +273,7 @@ const StepOne = ({
           />
         </div>
 
-        <div
-          className={`${isRental ? "hidden" : "block"} w-full`}
-        >
+        <div className={`${isRental ? "hidden" : "block"} w-full`}>
           <label className="text-green-600 block text-sm leading-4 font-medium">
             Possession Date
           </label>
@@ -329,8 +338,8 @@ const StepOne = ({
               isSame === true
                 ? "text-green-600"
                 : isSame === false
-                ? "text-red-600"
-                : "text-[#00000066]"
+                  ? "text-red-600"
+                  : "text-[#00000066]"
             } ${
               newProperty.propertyid && newProperty.propertyName
                 ? "text-green-600"
@@ -631,9 +640,7 @@ const StepOne = ({
           </select>
         </div>
 
-        <div
-          className={`${isRental ? "hidden" : "block"} w-full`}
-        >
+        <div className={`${isRental ? "hidden" : "block"} w-full`}>
           <label
             className={`${
               newProperty.registrationFee
@@ -669,7 +676,7 @@ const StepOne = ({
         <div
           className={`${
             ["RentalFlat", "RentalShop", "RentalOffice"].includes(
-              newProperty.propertyCategory
+              newProperty.propertyCategory,
             )
               ? "hidden"
               : "block"
@@ -700,9 +707,7 @@ const StepOne = ({
           </select>
         </div>
 
-        <div
-          className={`${isRental ? "hidden" : "block"} w-full`}
-        >
+        <div className={`${isRental ? "hidden" : "block"} w-full`}>
           <label
             className={`${
               newProperty.advocateFee ? "text-green-600" : "text-[#00000066]"
@@ -730,9 +735,7 @@ const StepOne = ({
           </select>
         </div>
 
-        <div
-          className={`${isRental ? "hidden" : "block"} w-full`}
-        >
+        <div className={`${isRental ? "hidden" : "block"} w-full`}>
           <label
             className={`${
               newProperty.msebWater ? "text-green-600" : "text-[#00000066]"
