@@ -340,7 +340,7 @@ function Layout() {
       );
       if (!response.ok) throw new Error("Failed to fetch Agreement.");
       const data = await response.json();
-      console.log(data);
+      console.log("Subscription :",data);
       setIsActiveSubscription(!!(data.active || user?.freeProjectPartner));
     } catch (err) {
       console.error("Error fetching:", err);

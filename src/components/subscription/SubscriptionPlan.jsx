@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { IoMdClose } from "react-icons/io";
@@ -21,7 +21,7 @@ const SubscriptionPlan = ({ plan }) => {
   const [error, setError] = useState("");
 
   const images = [plan?.firstImage, plan?.secondImage, plan?.thirdImage].filter(
-    Boolean
+    Boolean,
   );
 
   const loadRazorpayScript = () => {
@@ -60,7 +60,7 @@ const SubscriptionPlan = ({ plan }) => {
         user?.id,
         "projectpartner",
         "id",
-        setSuccessScreen
+        setSuccessScreen,
       );
     } catch (paymentError) {
       console.error("Payment Error:", paymentError.message);
@@ -101,18 +101,19 @@ const SubscriptionPlan = ({ plan }) => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setAmount(plan?.totalPrice);
-  },[plan?.totalPrice]);
+  }, [plan?.totalPrice]);
 
   return (
     <div
       className={`${
         showSubscription ? "flex" : "hidden"
-      } z-[61] overflow-scroll scrollbar-hide w-full h-screen fixed bottom-0 items-end md:items-start md:top-0 md:bottom-auto md:py-20`}
+      } z-[61] overflow-scroll scrollbar-hide w-full h-screen fixed bottom-0 items-end md:items-start md:top-0 md:left-[30%]  md:bottom-auto md:py-20`}
     >
       <div className="w-full md:w-[500px] max-h-[75vh] overflow-scroll scrollbar-hide bg-white py-8 pb-16 px-4 sm:px-6 border border-[#cfcfcf33] rounded-tl-lg rounded-tr-lg md:rounded-xl shadow-lg relative">
         {/* Close Button */}
+
         <IoMdClose
           onClick={() => {
             setShowSubscription(false);

@@ -17,9 +17,9 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("accessToken");
   };
 
-  //const URI = "http://localhost:3000";
+  const URI = "http://localhost:3000";
   //const URI = "https://api.reparv.in";
-  const URI = "https://aws-api.reparv.in";
+  //const URI = "https://aws-api.reparv.in";
 
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("projectPartnerUser")),
